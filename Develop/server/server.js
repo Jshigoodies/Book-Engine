@@ -14,8 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const startApolloServer = async (typeDefs, resolvers) => {
+
+  const server = new ApolloServer({ typeDefs, resolvers });
+
   await server.start();
-  server.applyMiddleware({ app });
+  server.applyMiddleware({ app, path: '/graphql' }); //not the correct path?
   
   db.once('open', () => {
     app.listen(PORT, () => {
