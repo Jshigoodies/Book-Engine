@@ -3,7 +3,7 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        getSingleUser: async (_, { user, params }, context) => { //'context' stores the user auth token or status
+        me: async (_, { user, params }, context) => { //'context' stores the user auth token or status
             const foundUser = await User.findOne({ //copied from the user-ctonroller.js
                 $or: [{ _id: user ? user._id : params.id }, { username: params.username }],
               });
